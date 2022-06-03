@@ -9,19 +9,19 @@ import lombok.Data;
 public class AppUserRequestDTO {
     private Long id;
 
-	@NotNull
+    @NotNull
     @Valid
-	private String username;
+    private String username;
 
-	@NotNull
+    @NotNull
     @Valid
     private String lastname;
 
-	@NotNull
+    @NotNull
     @Valid
     private String email;
 
-	@NotNull
+    @NotNull
     @Valid
-	private String password;  
+    private String password;
 }

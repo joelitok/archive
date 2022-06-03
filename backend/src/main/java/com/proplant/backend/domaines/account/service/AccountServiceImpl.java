@@ -21,17 +21,16 @@ import lombok.AllArgsConstructor;
 @Service
 @Transactional
 @AllArgsConstructor
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     private AdminRepository adminRepository;
     private RoleRepository roleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private AccountMapper accountMapper;
-    
 
     @Override
     public AdminResponseDTO saveAdmin(Admin admin) {
-       String hashPW = bCryptPasswordEncoder.encode(admin.getPassword());
-       admin.setPassword(hashPW);
+        String hashPW = bCryptPasswordEncoder.encode(admin.getPassword());
+        admin.setPassword(hashPW);
         return accountMapper.userToUserDTO(adminRepository.save(admin));
     }
 
@@ -42,8 +41,8 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public void addRoleToAdmin(String username, String roleName) {
-        AppRole role =roleRepository.findByRoleName(roleName);
-        Admin admin =adminRepository.findByUsername(username);
+        AppRole role = roleRepository.findByRoleName(roleName);
+        Admin admin = adminRepository.findByUsername(username);
         admin.getRoles().add(role);
     }
 
@@ -51,25 +50,25 @@ public class AccountServiceImpl implements AccountService{
     public AdminResponseDTO findUserByUsername(String username) {
         return accountMapper.userToUserDTO(adminRepository.findByUsername(username));
     }
-    
 
     @Override
     public void deleteAdmins() {
-        adminRepository.deleteAll();   
+        adminRepository.deleteAll();
     }
 
     @Override
     public void deleteRoles() {
-        roleRepository.deleteAll(); 
+        roleRepository.deleteAll();
     }
 
     @Override
     public List<AdminResponseDTO> allAdmins() {
         List<Admin> admins = adminRepository.findAll();
         List<AdminResponseDTO> adminResponseDTOs = new ArrayList<>();
-        for(Admin admin : admins){ adminResponseDTOs.add(accountMapper.userToUserDTO(admin));}
+        for (Admin admin : admins) {
+            adminResponseDTOs.add(accountMapper.userToUserDTO(admin));
+        }
         return adminResponseDTOs;
     }
-    
-    
+
 }

@@ -1,4 +1,5 @@
 package com.proplant.backend.domaines.account.repository.entity;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -11,18 +12,18 @@ public class Register {
     @Valid
     private String username;
 
-	@NotNull
+    @NotNull
     @Valid
     private String lastname;
 
-	@NotNull
+    @NotNull
     @Valid
     private String email;
 
-	@NotNull
+    @NotNull
     @Valid
-	private String password;
-    
+    private String password;
+
     @NotNull
     @Valid
     private String repassword;

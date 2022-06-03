@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class AppRoleResponseDTO {
-private Long id;
+    private Long id;
 
     @NotNull
     @Valid
@@ -15,5 +15,5 @@ private Long id;
 
     @NotNull
     @Valid
-    private String description;   
+    private String description;
 }

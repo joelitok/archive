@@ -12,29 +12,31 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AdminRequestDTO {
-	private Long id;
-
-	@NotNull
-    @Valid
-	private String username;
-
-	@NotNull
-    @Valid
-    private String lastname;
-
-	@NotNull
-    @Valid
-    private String email;
-
-	@NotNull
-    @Valid
-	private String password;
+    private Long id;
 
     @NotNull
     @Valid
-	private String personalNumber;
-    
-    private List<AppRole> roles = new ArrayList<>();  
+    private String username;
+
+    @NotNull
+    @Valid
+    private String lastname;
+
+    @NotNull
+    @Valid
+    private String email;
+
+    @NotNull
+    @Valid
+    private String password;
+
+    @NotNull
+    @Valid
+    private String personalNumber;
+
+    private List<AppRole> roles = new ArrayList<>();
 }

@@ -17,57 +17,55 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-
-
 @RequestMapping("/user")
 @RestController
 public class AccountRestController implements AccountApi {
-    Logger logger= LoggerFactory.getLogger(AccountRestController.class);
+  Logger logger = LoggerFactory.getLogger(AccountRestController.class);
 
-  @Autowired  
+  @Autowired
   private AccountService accountService;
-  
+
   @Autowired
   private AccountMapper accountMapper;
 
   @Override
   public ResponseEntity<AdminResponseDTO> register(final Register register) {
     logger.info("register new user");
-    if(!register.getPassword().equals(register.getRepassword()))
+    if (!register.getPassword().equals(register.getRepassword()))
       throw new RuntimeException("You must confirm your password");
-      AdminResponseDTO user = accountService.findUserByUsername(register.getUsername());
-      if(user!=null) throw new RuntimeException("this  use already exist");
-      Admin admin =new Admin();
-      admin.setUsername(register.getUsername());
-      admin.setPassword(register.getPassword());
-      accountService.saveAdmin(admin);
-      accountService.addRoleToAdmin(register.getUsername(), "USER");
-      return ResponseEntity.ok(accountMapper.userToUserDTO(admin));
+    AdminResponseDTO user = accountService.findUserByUsername(register.getUsername());
+    if (user != null)
+      throw new RuntimeException("this  use already exist");
+    Admin admin = new Admin();
+    admin.setUsername(register.getUsername());
+    admin.setPassword(register.getPassword());
+    accountService.saveAdmin(admin);
+    accountService.addRoleToAdmin(register.getUsername(), "USER");
+    return ResponseEntity.ok(accountMapper.userToUserDTO(admin));
   }
 
   @Override
   public ResponseEntity<AdminResponseDTO> profile(final Principal principal) {
     logger.info("get user profile");
-       AdminResponseDTO appUser= accountService.findUserByUsername(principal.getName());
-       return ResponseEntity.ok(appUser);
+    AdminResponseDTO appUser = accountService.findUserByUsername(principal.getName());
+    return ResponseEntity.ok(appUser);
   }
 
   @Override
   public ResponseEntity<List<AdminResponseDTO>> getAllUsers() {
-   
-    return null;
+    logger.info("get all Admins");
+    return ResponseEntity.ok(accountService.allAdmins());
   }
 
   @Override
-  public ResponseEntity<List<AdminResponseDTO>> getAllUsers(String username) {
+  public ResponseEntity<AdminResponseDTO> getAllUsers(String username) {
     logger.info("list all users by username");
-    return null;
+    return ResponseEntity.ok(accountService.findUserByUsername(username));
   }
 
   @Override
   public ResponseEntity<List<AdminResponseDTO>> getAllUsersSortByParam(String contextId, String dirdId) {
-   logger.info("sort users");
+    logger.info("sort users");
     return null;
   }
 

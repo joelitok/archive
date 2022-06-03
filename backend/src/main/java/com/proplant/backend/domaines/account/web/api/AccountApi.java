@@ -25,69 +25,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 public interface AccountApi {
     @Operation(summary = "Request to post a new user")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "User post successful",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = Register.class))),
-        @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
-        @ApiResponse(responseCode = "404", description = "No content found",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class)))})
-    @PostMapping(path = "/register", produces = {APPLICATION_JSON_VALUE})
-    ResponseEntity<AdminResponseDTO> register(@Parameter(in = ParameterIn.PATH, required = true)  @RequestBody Register register);  
+            @ApiResponse(responseCode = "200", description = "User post successful", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = Register.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
+            @ApiResponse(responseCode = "404", description = "No content found", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))) })
+    @PostMapping(path = "/register", produces = { APPLICATION_JSON_VALUE })
+    ResponseEntity<AdminResponseDTO> register(
+            @Parameter(in = ParameterIn.PATH, required = true) @RequestBody Register register);
 
     @Operation(summary = "Request to get user")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "User get successful",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AdminResponseDTO.class))),
-        @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
-        @ApiResponse(responseCode = "404", description = "No content found",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class)))})
-    @GetMapping(path = "/profile", produces = {APPLICATION_JSON_VALUE})
-    ResponseEntity<AdminResponseDTO> profile(@Parameter(in = ParameterIn.PATH, required = true) Principal principal);  
+            @ApiResponse(responseCode = "200", description = "User get successful", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AdminResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
+            @ApiResponse(responseCode = "404", description = "No content found", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))) })
+    @GetMapping(path = "/profile", produces = { APPLICATION_JSON_VALUE })
+    ResponseEntity<AdminResponseDTO> profile(@Parameter(in = ParameterIn.PATH, required = true) Principal principal);
 
     @Operation(summary = "Request to get list user")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "List User get successful",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AdminResponseDTO.class))),
-        @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
-        @ApiResponse(responseCode = "404", description = "No content found",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class)))})
-    @GetMapping(path = "/list", produces = {APPLICATION_JSON_VALUE})
+            @ApiResponse(responseCode = "200", description = "List User get successful", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AdminResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
+            @ApiResponse(responseCode = "404", description = "No content found", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))) })
+    @GetMapping(path = "/list", produces = { APPLICATION_JSON_VALUE })
     ResponseEntity<List<AdminResponseDTO>> getAllUsers();
 
     @Operation(summary = "Request to get list user by username")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "List User get successful",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AdminResponseDTO.class))),
-        @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
-        @ApiResponse(responseCode = "404", description = "No content found",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class)))})
-    @GetMapping(value = "/list/bYusername", produces = {APPLICATION_JSON_VALUE})
-    ResponseEntity<List<AdminResponseDTO>> getAllUsers(@PathVariable String username);
+            @ApiResponse(responseCode = "200", description = "List User get successful", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AdminResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
+            @ApiResponse(responseCode = "404", description = "No content found", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))) })
+    @GetMapping(value = "/list/bYusername", produces = { APPLICATION_JSON_VALUE })
+    ResponseEntity<AdminResponseDTO> getAllUsers(@PathVariable String username);
 
     @Operation(summary = "Request to sort users by param")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "User get successful",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AdminResponseDTO.class))),
-        @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
-        @ApiResponse(responseCode = "404", description = "No content found",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class)))})
-    @GetMapping(path = "/list/param", produces = {APPLICATION_JSON_VALUE})
-    ResponseEntity<List<AdminResponseDTO>> getAllUsersSortByParam(@RequestParam(required=false) String contextId, @RequestParam(required = false) String dirdId);
-
-
-
-
-
-
-
-
+            @ApiResponse(responseCode = "200", description = "User get successful", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AdminResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request - Invalid request or validation failed.", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))),
+            @ApiResponse(responseCode = "404", description = "No content found", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ApiErrorDto.class))) })
+    @GetMapping(path = "/list/param", produces = { APPLICATION_JSON_VALUE })
+    ResponseEntity<List<AdminResponseDTO>> getAllUsersSortByParam(@RequestParam(required = false) String contextId,
+            @RequestParam(required = false) String dirdId);
 
 }

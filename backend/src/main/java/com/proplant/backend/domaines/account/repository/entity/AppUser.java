@@ -12,26 +12,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor @NoArgsConstructor 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class AppUser {
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
-    @Valid
+	@Valid
 	private String username;
 
 	@NotNull
-    @Valid
-    private String lastname;
+	@Valid
+	private String lastname;
 
 	@NotNull
-    @Valid
-    private String email;
+	@Valid
+	private String email;
 
 	@NotNull
-    @Valid
+	@Valid
 	private String password;
 }

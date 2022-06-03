@@ -15,34 +15,36 @@ import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
-@AllArgsConstructor @NoArgsConstructor 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Admin {
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
-    @Valid
+	@Valid
 	private String username;
 
 	@NotNull
-    @Valid
-    private String lastname;
+	@Valid
+	private String lastname;
 
 	@NotNull
-    @Valid
-    private String email;
+	@Valid
+	private String email;
 
 	@NotNull
-    @Valid
+	@Valid
 	private String password;
-    
+
 	@NotNull
-    @Valid
+	@Valid
 	private String personalNumber;
 
-	@ManyToMany(fetch=FetchType.EAGER)
-    private Collection<AppRole> roles = new ArrayList<>(); 
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Collection<AppRole> roles = new ArrayList<>();
 }

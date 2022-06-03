@@ -15,24 +15,24 @@ public class AdminResponseDTO {
 	private Long id;
 
 	@NotNull
-    @Valid
+	@Valid
 	private String username;
 
 	@NotNull
-    @Valid
-    private String lastname;
+	@Valid
+	private String lastname;
 
 	@NotNull
-    @Valid
-    private String email;
+	@Valid
+	private String email;
 
 	@NotNull
-    @Valid
+	@Valid
 	private String password;
 
 	@NotNull
-    @Valid
+	@Valid
 	private String personalNumber;
-	
-	private List<AppRole> roles = new ArrayList<>(); 
- }
+
+	private List<AppRole> roles = new ArrayList<>();
+}
