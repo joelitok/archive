@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.proplant.backend.domaines.archive.mappers.ArchiveMapper;
 import com.proplant.backend.domaines.archive.repository.dao.ArchiveRepository;
@@ -19,7 +18,6 @@ import com.proplant.backend.domaines.archive.repository.entity.Archive;
 import com.proplant.backend.domaines.archive.web.dto.ArchiveRequestDTO;
 import com.proplant.backend.domaines.archive.web.dto.ArichveResponseDTO;
 
-import lombok.AllArgsConstructor;
 
 @Service
 @Transactional

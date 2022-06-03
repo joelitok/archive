@@ -1,6 +1,8 @@
 package com.proplant.backend.domaines.account.service;
 
 import com.proplant.backend.domaines.account.repository.entity.AppRole;
+import com.proplant.backend.domaines.account.repository.entity.AppUser;
+import com.proplant.backend.domaines.account.repository.entity.Register;
 import com.proplant.backend.domaines.account.web.dto.AdminResponseDTO;
 import com.proplant.backend.domaines.account.web.dto.AppRoleResponseDTO;
 
@@ -16,4 +18,6 @@ public interface AccountService{
     public void deleteAdmins();
     public void deleteRoles();
     public List<AdminResponseDTO> allAdmins();
+    public Admin registerAdmin(Register register);
+    public AppUser registerUser(Register register);
 }

@@ -27,4 +27,8 @@ public class Register {
     @NotNull
     @Valid
     private String repassword;
+    
+    @NotNull
+    @Valid
+    private String personalNumber;
 }

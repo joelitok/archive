@@ -1,5 +1,103 @@
 package com.proplant.backend.resources.web;
 
+import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+
+import com.proplant.backend.domaines.archive.repository.entity.Archive;
+
+import io.restassured.RestAssured;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class RessourceControllertest{
+
+ 
+    @LocalServerPort
+    private Integer port;
+
+    public static final String BASE_URL="http://localhost:2022";
+  
+ 
+
+    @Test
+    public void shouldReturnSuccessfullyWhengetaddArchive(){
+    RestAssured.given().header("Authorization","Bearer "+token())
+          .contentType("application/json")
+          .body( "{\"name\": \"Effective Java\", \"description\":\"mydescription\",\"image\":\"null\",\"file\":\"null\",\"type\":\"mytype\"}")
+          .when()
+          .post(BASE_URL+"/archive/new")
+          .then()
+          .statusCode(200);
+    }
+
+    @Test
+    public void shouldReturnSuccessfullyWhendeleteArchive(){
+    RestAssured.given().header("Authorization","Bearer "+token())
+          .contentType("application/json")
+          .post(BASE_URL+"/archive/delete/1")
+          .then()
+          .statusCode(200);
+    }
+ 
+
+    @Test
+    public void shouldReturnSuccessfullyWhengetallArchives(){
+          RestAssured.given().contentType("application/json")
+          .get(BASE_URL+"/archive/all").then().statusCode(200);
+        
+    }
+
+    @Test
+    public void shouldReturnSuccessfullyWhengetSingleArchive(){
+           RestAssured.given().contentType("application/json")
+          .get(BASE_URL+"/archive/1").then().statusCode(200);
+    
+    }
+
+    @Test
+    public void shouldReturnSuccessfullyWhenCheckIfArchiveExist(){
+     Archive archive = new Archive();
+     archive.setDescription("archive 2");
+     archive.setImage(null);
+     archive.setFile(null);
+     archive.setName("archive 2");  
+     archive.setType("archive 2");
+    }
+
+
+
+
+    //espired after 10 days
+    public String token(){
+      String token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Ii9sb2dpbiIsImV4cCI6MTY1NTEyMTQxNX0._zEJ_gdO4PTiMOKuCHaWe2hEBw4Fo5rw6KswtFaZVWc";
+      return token;  
+    }
+
+    
+    //mapShop String to file
+    public byte[] mapShopStringToFile(String fileName){
+    byte[] bytes = fileName.getBytes();
+    return bytes;
+    }
+    
+
+ 
+ 
+
+
+
+
+
+
+
+
+/*
+
+
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
+
 import com.proplant.backend.BackendApplication;
 import com.proplant.backend.domaines.account.service.AccountService;
 import com.proplant.backend.domaines.archive.mappers.ArchiveMapper;
@@ -8,13 +106,8 @@ import com.proplant.backend.domaines.archive.repository.entity.Archive;
 import com.proplant.backend.domaines.archive.service.ArchiveService;
 import com.proplant.backend.utils.LoadDataDB;
 
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
-/*
+import org.hamcrest.Matchers;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -28,63 +121,42 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.equalTo; */
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = BackendApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+import static org.hamcrest.Matchers.equalTo; 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = BackendApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+import io.restassured.filter.log.RequestLoggingFilter;*/
 
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
 
-@SpringBootTest(
-  webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-  properties = {
-  "spring.security.user.name=admin",
-  "spring.security.user.password=1234",
-  "spring.security.user.roles=ADMIN"
-})
-public class RessourceControllertest {
- 
-    @LocalServerPort
-    private Integer port;
-  
-    @Test
-    void shouldReturnSuccessfullyWhengetaddRessource() {
-  
-      ExtractableResponse<Response> response = RestAssured
-        .given()
+
+
+
+
+
+
+
+
+
+/*
+ * 
+ * 
           //.filter(new RequestLoggingFilter())
           //.auth().preemptive().basic("admin", "1234")
-          .contentType("application/json")
-          .body("{\"name\": \"programme Java\"}")
-        .when()
-          .post("http://localhost:2022/ressource/new")
-        .then()
-          .statusCode(200)
-          .extract();
-  
-      /*RestAssured
-        .when()
-         .get(response.header("Location"))
-        .then()
-          .statusCode(200)
-          .body("id", Matchers.notNullValue())
-          .body("name", Matchers.equalTo("programme Java"));*/
-    }
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+
+
+
+
  
  
-    @Test
-    public void shouldReturnSuccessfullyWhengetallRessource(){
-        RestAssured.baseURI="http://localhost:2022";
-        RestAssured.given().get("ressource/all").then().statusCode(200);
-        
-    }
- 
- 
- 
- 
- /*import io.restassured.module.mockmvc.RestAssuredMockMvc;
+ /*
+
+ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -187,6 +259,21 @@ class BookControllerTest {
 }*/
  
  
+
+/**
+ * 
+ * 
+ *  RestAssured
+        .when()
+         .get(response.header("Location"))
+        .then()
+          .statusCode(200)
+          .body("id", Matchers.notNullValue())
+          .body("name", Matchers.equalTo("programme Java"));
+ * 
+ * 
+ * 
+ */
  
  
  

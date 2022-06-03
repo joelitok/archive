@@ -35,10 +35,8 @@ public class AccountRestController implements AccountApi {
       throw new RuntimeException("You must confirm your password");
     AdminResponseDTO user = accountService.findUserByUsername(register.getUsername());
     if (user != null)
-      throw new RuntimeException("this  use already exist");
-    Admin admin = new Admin();
-    admin.setUsername(register.getUsername());
-    admin.setPassword(register.getPassword());
+    throw new RuntimeException("this  use already exist");
+    Admin admin = accountService.registerAdmin(register);
     accountService.saveAdmin(admin);
     accountService.addRoleToAdmin(register.getUsername(), "USER");
     return ResponseEntity.ok(accountMapper.userToUserDTO(admin));

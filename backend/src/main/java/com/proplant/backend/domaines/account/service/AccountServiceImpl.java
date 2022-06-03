@@ -9,6 +9,8 @@ import com.proplant.backend.domaines.account.repository.dao.RoleRepository;
 import com.proplant.backend.domaines.account.mappers.AccountMapper;
 import com.proplant.backend.domaines.account.repository.dao.AdminRepository;
 import com.proplant.backend.domaines.account.repository.entity.AppRole;
+import com.proplant.backend.domaines.account.repository.entity.AppUser;
+import com.proplant.backend.domaines.account.repository.entity.Register;
 import com.proplant.backend.domaines.account.web.dto.AdminResponseDTO;
 import com.proplant.backend.domaines.account.web.dto.AppRoleResponseDTO;
 import com.proplant.backend.domaines.account.repository.entity.Admin;
@@ -69,6 +71,27 @@ public class AccountServiceImpl implements AccountService {
             adminResponseDTOs.add(accountMapper.userToUserDTO(admin));
         }
         return adminResponseDTOs;
+    }
+
+    @Override
+    public Admin registerAdmin(Register register) {
+        Admin admin = new Admin();
+        admin.setEmail(register.getEmail());
+        admin.setLastname(register.getLastname());
+        admin.setUsername(register.getUsername());
+        admin.setPersonalNumber(register.getPersonalNumber());
+        admin.setPassword(register.getPassword());
+        return admin;
+    }
+
+    @Override
+    public AppUser registerUser(Register register) {
+        AppUser appUser = new AppUser();
+        appUser.setEmail(register.getEmail());
+        appUser.setLastname(register.getLastname());
+        appUser.setUsername(register.getUsername());
+        appUser.setPassword(register.getPassword());
+        return appUser;
     }
 
 }
