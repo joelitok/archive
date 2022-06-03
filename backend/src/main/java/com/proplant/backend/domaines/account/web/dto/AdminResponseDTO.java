@@ -29,6 +29,10 @@ public class AdminResponseDTO {
 	@NotNull
     @Valid
 	private String password;
+
+	@NotNull
+    @Valid
+	private String personalNumber;
 	
 	private List<AppRole> roles = new ArrayList<>(); 
  }

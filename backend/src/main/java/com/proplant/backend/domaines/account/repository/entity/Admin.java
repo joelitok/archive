@@ -38,6 +38,10 @@ public class Admin {
 	@NotNull
     @Valid
 	private String password;
+    
+	@NotNull
+    @Valid
+	private String personalNumber;
 
 	@ManyToMany(fetch=FetchType.EAGER)
     private Collection<AppRole> roles = new ArrayList<>(); 

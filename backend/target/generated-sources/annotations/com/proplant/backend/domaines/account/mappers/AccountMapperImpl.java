@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-03T14:38:21+0200",
+    date = "2022-06-03T15:42:50+0200",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @Component
@@ -32,6 +32,7 @@ public class AccountMapperImpl implements AccountMapper {
         adminResponseDTO.setId( user.getId() );
         adminResponseDTO.setLastname( user.getLastname() );
         adminResponseDTO.setPassword( user.getPassword() );
+        adminResponseDTO.setPersonalNumber( user.getPersonalNumber() );
         Collection<AppRole> collection = user.getRoles();
         if ( collection != null ) {
             adminResponseDTO.setRoles( new ArrayList<AppRole>( collection ) );
@@ -53,6 +54,7 @@ public class AccountMapperImpl implements AccountMapper {
         admin.setId( userRequestDTO.getId() );
         admin.setLastname( userRequestDTO.getLastname() );
         admin.setPassword( userRequestDTO.getPassword() );
+        admin.setPersonalNumber( userRequestDTO.getPersonalNumber() );
         List<AppRole> list = userRequestDTO.getRoles();
         if ( list != null ) {
             admin.setRoles( new ArrayList<AppRole>( list ) );

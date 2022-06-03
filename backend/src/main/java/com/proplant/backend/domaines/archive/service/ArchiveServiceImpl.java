@@ -1,5 +1,9 @@
 package com.proplant.backend.domaines.archive.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -7,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.proplant.backend.domaines.archive.mappers.ArchiveMapper;
 import com.proplant.backend.domaines.archive.repository.dao.ArchiveRepository;
@@ -18,10 +23,33 @@ import lombok.AllArgsConstructor;
 
 @Service
 @Transactional
-@AllArgsConstructor
+
 public class ArchiveServiceImpl implements ArchiveService{
+
+
     private final ArchiveRepository archiveRepository;
     private final ArchiveMapper archiveMapper;
+    public static final String UPLOADED_FOLDER_FILES="./uploads/files";
+    public static final String UPLOADED_FOLDER_IMAGES="./uploads/images";
+
+
+    public ArchiveServiceImpl(ArchiveRepository archiveRepository, 
+           ArchiveMapper archiveMapper) {
+        this.archiveRepository = archiveRepository;
+        this.archiveMapper = archiveMapper;
+    }
+
+    @Override
+    public void saveFileUpload(byte[] file, byte[] image) throws IOException {
+        if (file.length!=0) {
+            byte[] bytesFiles = file;
+            byte[] bytesImages = image;
+            Path pathFiles = Paths.get(UPLOADED_FOLDER_FILES+file);
+            Path pathImages = Paths.get(UPLOADED_FOLDER_IMAGES +image);
+            Files.write(pathFiles, bytesFiles);
+            Files.write(pathImages, bytesImages);
+        }
+    }
 
     @Override
     public ArichveResponseDTO getArchives(Long id) {
@@ -39,10 +67,21 @@ public class ArchiveServiceImpl implements ArchiveService{
 
     
     @Override
-    public ArichveResponseDTO newArchive(ArchiveRequestDTO archiveRequestDTO) {
+    public ArichveResponseDTO newArchive(ArchiveRequestDTO archiveRequestDTO){
         Archive archive =archiveMapper.archiveRequestDtoToArchive(archiveRequestDTO);
         archive.setId(archiveRequestDTO.getId());
         archive.setName(archiveRequestDTO.getName());
+        archive.setFile(archiveRequestDTO.getFile());
+        archive.setImage(archiveRequestDTO.getImage());
+        archive.setDescription(archiveRequestDTO.getDescription());
+        archive.setType(archiveRequestDTO.getType());
+        
+        //enregistrer le fichier dans un dossier
+        try {
+            saveFileUpload(archiveRequestDTO.getFile(), archiveRequestDTO.getImage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Archive saveArchive =archiveRepository.save(archive);
         return archiveMapper.archiveToArchiveDTO(saveArchive);
     }
@@ -52,7 +91,6 @@ public class ArchiveServiceImpl implements ArchiveService{
     public void deleteArchive(Long id) {
     archiveRepository.deleteById(id);  
     }
-
-    
+   
     
 }
