@@ -41,13 +41,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
-    http.authorizeRequests().antMatchers("/login","/user/**").permitAll();
+    http.authorizeRequests().antMatchers("/login").permitAll();
 	http.authorizeRequests().antMatchers("/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**", "/configuration/**").permitAll();
 	
+	//user
+	http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").permitAll();
+	http.authorizeRequests().antMatchers(HttpMethod.POST,"/user/**").hasAuthority("ADMIN");
+	http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/user/**").hasAuthority("ADMIN");
 
-	//ressource                                                                      
+
+	//archive                                                                     
 	 http.authorizeRequests().antMatchers(HttpMethod.GET,"/archive/**").permitAll();
-	 http.authorizeRequests().antMatchers(HttpMethod.POST, "/archive/**").permitAll(); //.hasAuthority("ADMIN");
+	 http.authorizeRequests().antMatchers(HttpMethod.POST, "/archive/**").hasAuthority("ADMIN");
 	 http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/archive/**").hasAuthority("ADMIN");
 	 http.authorizeRequests().antMatchers(HttpMethod.PUT, "/archive/**").hasAuthority("ADMIN");
 	 
