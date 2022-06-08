@@ -6,16 +6,13 @@ import com.proplant.backend.domaines.account.web.dto.AdminRequestDTO;
 import com.proplant.backend.domaines.account.web.dto.AdminResponseDTO;
 import com.proplant.backend.domaines.account.web.dto.AppRoleRequestDTO;
 import com.proplant.backend.domaines.account.web.dto.AppRoleResponseDTO;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-06T15:22:41+0200",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
+    date = "2022-06-08T13:29:42+0200",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.10 (Oracle Corporation)"
 )
 @Component
 public class AccountMapperImpl implements AccountMapper {
@@ -28,17 +25,6 @@ public class AccountMapperImpl implements AccountMapper {
 
         AdminResponseDTO adminResponseDTO = new AdminResponseDTO();
 
-        adminResponseDTO.setEmail( user.getEmail() );
-        adminResponseDTO.setId( user.getId() );
-        adminResponseDTO.setLastname( user.getLastname() );
-        adminResponseDTO.setPassword( user.getPassword() );
-        adminResponseDTO.setPersonalNumber( user.getPersonalNumber() );
-        Collection<AppRole> collection = user.getRoles();
-        if ( collection != null ) {
-            adminResponseDTO.setRoles( new ArrayList<AppRole>( collection ) );
-        }
-        adminResponseDTO.setUsername( user.getUsername() );
-
         return adminResponseDTO;
     }
 
@@ -49,17 +35,6 @@ public class AccountMapperImpl implements AccountMapper {
         }
 
         Admin admin = new Admin();
-
-        admin.setEmail( userRequestDTO.getEmail() );
-        admin.setId( userRequestDTO.getId() );
-        admin.setLastname( userRequestDTO.getLastname() );
-        admin.setPassword( userRequestDTO.getPassword() );
-        admin.setPersonalNumber( userRequestDTO.getPersonalNumber() );
-        List<AppRole> list = userRequestDTO.getRoles();
-        if ( list != null ) {
-            admin.setRoles( new ArrayList<AppRole>( list ) );
-        }
-        admin.setUsername( userRequestDTO.getUsername() );
 
         return admin;
     }
@@ -72,10 +47,6 @@ public class AccountMapperImpl implements AccountMapper {
 
         AppRoleResponseDTO appRoleResponseDTO = new AppRoleResponseDTO();
 
-        appRoleResponseDTO.setDescription( role.getDescription() );
-        appRoleResponseDTO.setId( role.getId() );
-        appRoleResponseDTO.setRoleName( role.getRoleName() );
-
         return appRoleResponseDTO;
     }
 
@@ -86,10 +57,6 @@ public class AccountMapperImpl implements AccountMapper {
         }
 
         AppRole appRole = new AppRole();
-
-        appRole.setDescription( roleRequestDTO.getDescription() );
-        appRole.setId( roleRequestDTO.getId() );
-        appRole.setRoleName( roleRequestDTO.getRoleName() );
 
         return appRole;
     }

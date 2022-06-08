@@ -21,30 +21,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Admin {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotNull
-	@Valid
-	private String username;
+    @NotNull
+    @Valid
+    private String username;
 
-	@NotNull
-	@Valid
-	private String lastname;
+    @NotNull
+    @Valid
+    private String lastname;
 
-	@NotNull
-	@Valid
-	private String email;
+    @NotNull
+    @Valid
+    private String email;
 
-	@NotNull
-	@Valid
-	private String password;
+    @NotNull
+    @Valid
+    private String password;
 
-	@NotNull
-	@Valid
-	private String personalNumber;
+    @NotNull
+    @Valid
+    private String personalNumber;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	private Collection<AppRole> roles = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<AppRole> roles = new ArrayList<>();
 }

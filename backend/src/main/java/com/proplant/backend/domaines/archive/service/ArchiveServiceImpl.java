@@ -21,7 +21,6 @@ import com.proplant.backend.domaines.archive.web.dto.ArichveResponseDTO;
 
 @Service
 @Transactional
-
 public class ArchiveServiceImpl implements ArchiveService{
 
 

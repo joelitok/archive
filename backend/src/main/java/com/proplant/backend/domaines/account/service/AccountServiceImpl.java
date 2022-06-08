@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.proplant.backend.domaines.account.repository.dao.RoleRepository;
+import com.proplant.backend.domaines.account.repository.dao.AppRoleRepository;
 import com.proplant.backend.domaines.account.mappers.AccountMapper;
 import com.proplant.backend.domaines.account.repository.dao.AdminRepository;
 import com.proplant.backend.domaines.account.repository.entity.AppRole;
@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AccountServiceImpl implements AccountService {
     private AdminRepository adminRepository;
-    private RoleRepository roleRepository;
+    private AppRoleRepository appRoleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private AccountMapper accountMapper;
 
@@ -38,12 +38,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AppRoleResponseDTO saveRole(AppRole role) {
-        return accountMapper.roleToRoleDTO(roleRepository.save(role));
+        return accountMapper.roleToRoleDTO(appRoleRepository.save(role));
     }
 
     @Override
     public void addRoleToAdmin(String username, String roleName) {
-        AppRole role = roleRepository.findByRoleName(roleName);
+        AppRole role = appRoleRepository.findByRoleName(roleName);
         Admin admin = adminRepository.findByUsername(username);
         admin.getRoles().add(role);
     }
@@ -60,7 +60,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deleteRoles() {
-        roleRepository.deleteAll();
+        appRoleRepository.deleteAll();
     }
 
     @Override

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: archive
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: archive
+  template:
+    metadata:
+      labels:
+        app: archive
+    spec:
+      containers:
+      - name: archive
+        image: archive
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+          requests:
+            memory: "256Mi"
+            cpu: "0.2"
+        ports:
+        - containerPort: 80
